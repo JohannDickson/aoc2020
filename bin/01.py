@@ -13,3 +13,7 @@ for i in range(0, len(numbers)):
         m = numbers[i+j]
         if (n+m) == 2020:
             print(n*m)
+        for k in range(0, len(numbers[i+j:])):
+            o = numbers[i+j+k]
+            if (n+m+o) == 2020:
+                print(n*m*o)
