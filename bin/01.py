@@ -12,8 +12,8 @@ for i in range(0, len(numbers)):
     for j in range(0, len(numbers[i:])):
         m = numbers[i+j]
         if (n+m) == 2020:
-            print(n*m)
+            print("Part 1:", n*m)
         for k in range(0, len(numbers[i+j:])):
             o = numbers[i+j+k]
             if (n+m+o) == 2020:
-                print(n*m*o)
+                print("Part 2:", n*m*o)
