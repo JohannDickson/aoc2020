@@ -50,6 +50,18 @@ def part1(treeGrid, slope_x, slope_y, display=False):
     return treeCounter
 
 
+def part2(treeGrid, slopes):
+    results = []
+    for slope in slopes:
+        results.append(part1(deepcopy(treeGrid), slope[0], slope[1]))
+
+    result = 1
+    for i in results:
+        result = result * i
+    return result, results
+
+
 if __name__ == '__main__':
     print("Tests:")
-    print("Part 1:", part1(testInput, 3, 1, True))
+    print("Part 1:", part1(deepcopy(testInput), 3, 1, False))
+    print("Part 2:", part2(deepcopy(testInput), [(1,1), (3,1), (5,1), (7,1), (1,2)]))
