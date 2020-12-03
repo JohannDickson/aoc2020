@@ -9,6 +9,10 @@ testfile = "../tests/03.txt"
 with open( os.path.join(os.path.dirname(__file__), testfile) ) as f:
     testInput = [list(x.strip()) for x in f.readlines()]
 
+inputfile = "../input/03.txt"
+with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
+    myInput = [list(x.strip()) for x in f.readlines()]
+
 
 def printGrid(gridToPrint, display):
     if display:
@@ -65,3 +69,9 @@ if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", p1)
     print("Part 2:", p2)
+
+    print()
+
+    print("Mine:")
+    print("Part 1:", part1(myInput, 3, 1))
+    print("Part 2:", part2(myInput, [(1,1), (3,1), (5,1), (7,1), (1,2)]))

@@ -7,6 +7,10 @@ testfile = "../tests/01.txt"
 with open( os.path.join(os.path.dirname(__file__), testfile) ) as f:
     testInput = [int(x) for x in f.readlines()]
 
+inputfile = "../input/01.txt"
+with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
+    myInput = [int(x) for x in f.readlines()]
+
 
 def part1(numbers):
     for i in range(0, len(numbers)):
@@ -29,5 +33,12 @@ def part2(numbers):
 
 
 if __name__ == '__main__':
+    print("Tests:")
     print("Part 1:", part1(testInput))
     print("Part 2:", part2(testInput))
+
+    print()
+
+    print("Mine:")
+    print("Part 1:", part1(myInput))
+    print("Part 2:", part2(myInput))
