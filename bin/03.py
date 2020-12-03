@@ -10,16 +10,18 @@ with open( os.path.join(os.path.dirname(__file__), testInput) ) as f:
     testInput = [list(x.strip()) for x in f.readlines()]
 
 
-def printGrid(gridToPrint):
-    for y in gridToPrint:
-        print(''.join(y))
+def printGrid(gridToPrint, display):
+    if display:
+        os.system('clear')
+        for y in gridToPrint:
+            print(''.join(y))
+        sleep(0.2)
 
 
-def part1(treeGrid, slope_x, slope_y):
+def part1(treeGrid, slope_x, slope_y, display=False):
     originalGrid = deepcopy(treeGrid)
     my_pos = [0,0]
     treeCounter = 0
-
 
     grid_width = len(treeGrid[0])
     grid_height = len(treeGrid)
@@ -27,7 +29,7 @@ def part1(treeGrid, slope_x, slope_y):
     # Initial increment, all others at end of loop
     my_pos[0] += slope_y
     my_pos[1] += slope_x
-    printGrid(treeGrid)
+    printGrid(treeGrid, display)
 
     while my_pos[0] < grid_height:
 
@@ -43,14 +45,11 @@ def part1(treeGrid, slope_x, slope_y):
         my_pos[0] += slope_y
         my_pos[1] += slope_x
 
-        os.system('clear')
-        printGrid(treeGrid)
-        sleep(0.4)
+        printGrid(treeGrid, display)
 
     return treeCounter
 
 
 if __name__ == '__main__':
     print("Tests:")
-    print("Part 1:", part1(testInput, 3, 1))
-
+    print("Part 1:", part1(testInput, 3, 1, True))
