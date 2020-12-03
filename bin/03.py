@@ -19,7 +19,7 @@ def printGrid(gridToPrint, display):
 
 
 def part1(treeGrid, slope_x, slope_y, display=False):
-    originalGrid = deepcopy(treeGrid)
+    myGrid = deepcopy(treeGrid)
     my_pos = [0,0]
     treeCounter = 0
 
@@ -30,19 +30,19 @@ def part1(treeGrid, slope_x, slope_y, display=False):
 
     while my_pos[0] < grid_height:
 
-        while my_pos[1] >= len(treeGrid[my_pos[0]]):
-            treeGrid[my_pos[0]].extend(originalGrid[my_pos[0]])
+        while my_pos[1] >= len(myGrid[my_pos[0]]):
+            myGrid[my_pos[0]].extend(treeGrid[my_pos[0]])
 
-        if treeGrid[my_pos[0]][my_pos[1]] == '#':
+        if myGrid[my_pos[0]][my_pos[1]] == '#':
             treeCounter += 1
-            treeGrid[my_pos[0]][my_pos[1]] = 'X'
+            myGrid[my_pos[0]][my_pos[1]] = 'X'
         else:
-            treeGrid[my_pos[0]][my_pos[1]] = 'O'
+            myGrid[my_pos[0]][my_pos[1]] = 'O'
 
         my_pos[0] += slope_y
         my_pos[1] += slope_x
 
-        printGrid(treeGrid, display)
+        printGrid(myGrid, display)
 
     return treeCounter
 
@@ -50,7 +50,7 @@ def part1(treeGrid, slope_x, slope_y, display=False):
 def part2(treeGrid, slopes, display=False):
     results = []
     for slope in slopes:
-        results.append(part1(deepcopy(treeGrid), slope[0], slope[1], display))
+        results.append(part1(treeGrid, slope[0], slope[1], display))
 
     result = 1
     for i in results:
@@ -59,7 +59,7 @@ def part2(treeGrid, slopes, display=False):
 
 
 if __name__ == '__main__':
-    p1 = part1(testInput, 3, 1, False)
+    p1 = part1(testInput, 3, 1)
     p2 = part2(testInput, [(1,1), (3,1), (5,1), (7,1), (1,2)])
     print("Tests:")
     print("Part 1:", p1)
