@@ -5,8 +5,8 @@ from copy import deepcopy
 from time import sleep
 
 
-testInput = "../tests/03.txt"
-with open( os.path.join(os.path.dirname(__file__), testInput) ) as f:
+testfile = "../tests/03.txt"
+with open( os.path.join(os.path.dirname(__file__), testfile) ) as f:
     testInput = [list(x.strip()) for x in f.readlines()]
 
 

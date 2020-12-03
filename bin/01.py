@@ -2,10 +2,10 @@
 
 import os
 
-inputfile = "../tests/01.txt"
 
-with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
-    numbers = [int(x) for x in f.readlines()]
+testfile = "../tests/01.txt"
+with open( os.path.join(os.path.dirname(__file__), testfile) ) as f:
+    testInput = [int(x) for x in f.readlines()]
 
 
 def part1(numbers):
@@ -29,5 +29,5 @@ def part2(numbers):
 
 
 if __name__ == '__main__':
-    print("Part 1:", part1(numbers))
-    print("Part 2:", part2(numbers))
+    print("Part 1:", part1(testInput))
+    print("Part 2:", part2(testInput))
