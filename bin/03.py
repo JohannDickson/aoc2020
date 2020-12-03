@@ -20,7 +20,8 @@ def printGrid(gridToPrint, display):
 
 def part1(treeGrid, slope_x, slope_y, display=False):
     myGrid = deepcopy(treeGrid)
-    my_pos = [0,0]
+    posX = 0
+    posY = 0
     treeCounter = 0
 
     grid_width = len(treeGrid[0])
@@ -28,19 +29,19 @@ def part1(treeGrid, slope_x, slope_y, display=False):
 
     printGrid(treeGrid, display)
 
-    while my_pos[0] < grid_height:
+    while posY < grid_height:
 
-        while my_pos[1] >= len(myGrid[my_pos[0]]):
-            myGrid[my_pos[0]].extend(treeGrid[my_pos[0]])
+        while posX >= len(myGrid[posY]):
+            myGrid[posY].extend(treeGrid[posY])
 
-        if myGrid[my_pos[0]][my_pos[1]] == '#':
+        if myGrid[posY][posX] == '#':
             treeCounter += 1
-            myGrid[my_pos[0]][my_pos[1]] = 'X'
+            myGrid[posY][posX] = 'X'
         else:
-            myGrid[my_pos[0]][my_pos[1]] = 'O'
+            myGrid[posY][posX] = 'O'
 
-        my_pos[0] += slope_y
-        my_pos[1] += slope_x
+        posY += slope_y
+        posX += slope_x
 
         printGrid(myGrid, display)
 
