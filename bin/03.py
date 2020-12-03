@@ -26,9 +26,6 @@ def part1(treeGrid, slope_x, slope_y, display=False):
     grid_width = len(treeGrid[0])
     grid_height = len(treeGrid)
 
-    # Initial increment, all others at end of loop
-    my_pos[0] += slope_y
-    my_pos[1] += slope_x
     printGrid(treeGrid, display)
 
     while my_pos[0] < grid_height:
