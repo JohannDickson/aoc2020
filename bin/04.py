@@ -43,19 +43,16 @@ def validateValues(p):
     if yrs.match(p['byr']) and (1920 <= int(p['byr']) <= 2002):
         pass
     else:
-        print("INVALID byr", p['byr'])
         return False
 
     if yrs.match(p['iyr']) and (2010 <= int(p['iyr']) <= 2020):
         pass
     else:
-        print("INVALID iyr", p['iyr'])
         return False
 
     if yrs.match(p['eyr']) and (2020 <= int(p['eyr']) <= 2030):
         pass
     else:
-        print("INVALID eyr", p['eyr'])
         return False
 
     rhgt = hgt.match(p['hgt'])
@@ -64,28 +61,23 @@ def validateValues(p):
         or (rhgt[2] == 'in' and 59 <= int(rhgt[1]) <= 76)):
         pass
     else:
-        print("INVALID hgt", p['hgt'])
         return False
 
     if hcl.match(p['hcl']):
         pass
     else:
-        print("INVALID hcl", p['hcl'])
         return False
 
     if p['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
         pass
     else:
-        print("INVALID ecl", p['ecl'])
         return False
 
     if pid.match(p['pid']):
         pass
     else:
-        print("INVALID pid", p['pid'])
         return False
 
-    print('VALID')
     return True
 
 
