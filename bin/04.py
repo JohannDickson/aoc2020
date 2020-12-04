@@ -12,8 +12,11 @@ with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
     myInput = [x.replace('\n', ' ').strip() for x in f.read().split('\n\n')]
 
 
-def validateDocument(doc):
-    passport = dict([d.split(':') for d in doc.split(' ')])
+def parsePassport(doc):
+    return dict([d.split(':') for d in doc.split(' ')])
+
+
+def validateKeys(passport):
     expectedFields = [
         "byr",
         "iyr",
@@ -28,7 +31,8 @@ def validateDocument(doc):
 
 
 def part1(passports):
-    validPassports = [validateDocument(p) for p in passports].count(True)
+    passports = [parsePassport(p) for p in passports]
+    validPassports = [validateKeys(p) for p in passports].count(True)
     return validPassports
 
 
