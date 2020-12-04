@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import os
+import re
 
 
 # testfile = "../tests/04.txt"
@@ -33,32 +34,40 @@ def validateKeys(passport):
 
 
 def validateValues(p):
-    if  1920 <= int(p['byr']) <= 2002:
+    yrs = re.compile('^\d{4}$')
+    hgt = re.compile('(\d+)(cm|in)')
+    hcl = re.compile('#[a-f0-9]')
+    pid = re.compile('^\d{9}$')
+
+
+    if yrs.match(p['byr']) and (1920 <= int(p['byr']) <= 2002):
         pass
     else:
         print("INVALID byr", p['byr'])
         return False
 
-    if 2010 <= int(p['iyr']) <= 2020:
+    if yrs.match(p['iyr']) and (2010 <= int(p['iyr']) <= 2020):
         pass
     else:
         print("INVALID iyr", p['iyr'])
         return False
 
-    if 2020 <= int(p['eyr']) <= 2030:
+    if yrs.match(p['eyr']) and (2020 <= int(p['eyr']) <= 2030):
         pass
     else:
         print("INVALID eyr", p['eyr'])
         return False
 
-    if (p['hgt'][-2:] == 'cm' and 150 <= int(p['hgt'][:-2]) <= 193) \
-    or p['hgt'][-2:] == 'in' and 59 <= int(p['hgt'][:-2]) <= 76:
+    rhgt = hgt.match(p['hgt'])
+    if rhgt and \
+        ((rhgt[2] == 'cm' and 150 <= int(rhgt[1]) <= 193) \
+        or (rhgt[2] == 'in' and 59 <= int(rhgt[1]) <= 76)):
         pass
     else:
         print("INVALID hgt", p['hgt'])
         return False
 
-    if p['hcl'][0] == '#' and len(p['hcl']) == 7:
+    if hcl.match(p['hcl']):
         pass
     else:
         print("INVALID hcl", p['hcl'])
@@ -70,7 +79,7 @@ def validateValues(p):
         print("INVALID ecl", p['ecl'])
         return False
 
-    if p['pid']:
+    if pid.match(p['pid']):
         pass
     else:
         print("INVALID pid", p['pid'])
@@ -105,3 +114,4 @@ if __name__ == '__main__':
 
     print("Mine:")
     print("Part 1:", part1(myInput))
+    print("Part 2:", part2(myInput))
