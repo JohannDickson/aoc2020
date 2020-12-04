@@ -40,42 +40,29 @@ def validateValues(p):
     pid = re.compile('^\d{9}$')
 
 
-    if yrs.match(p['byr']) and (1920 <= int(p['byr']) <= 2002):
-        pass
-    else:
+    if not (yrs.match(p['byr']) and (1920 <= int(p['byr']) <= 2002)):
         return False
 
-    if yrs.match(p['iyr']) and (2010 <= int(p['iyr']) <= 2020):
-        pass
-    else:
+    if not (yrs.match(p['iyr']) and (2010 <= int(p['iyr']) <= 2020)):
         return False
 
-    if yrs.match(p['eyr']) and (2020 <= int(p['eyr']) <= 2030):
-        pass
-    else:
+    if not (yrs.match(p['eyr']) and (2020 <= int(p['eyr']) <= 2030)):
         return False
 
     rhgt = hgt.match(p['hgt'])
-    if rhgt and \
+    if not (rhgt and \
         ((rhgt[2] == 'cm' and 150 <= int(rhgt[1]) <= 193) \
-        or (rhgt[2] == 'in' and 59 <= int(rhgt[1]) <= 76)):
-        pass
-    else:
+        or (rhgt[2] == 'in' and 59 <= int(rhgt[1]) <= 76)) \
+    ):
         return False
 
-    if hcl.match(p['hcl']):
-        pass
-    else:
+    if not (hcl.match(p['hcl'])):
         return False
 
-    if p['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
-        pass
-    else:
+    if not (p['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']):
         return False
 
-    if pid.match(p['pid']):
-        pass
-    else:
+    if not (pid.match(p['pid'])):
         return False
 
     return True
