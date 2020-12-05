@@ -30,13 +30,13 @@ def part2(boardingPasses):
     lower = min(seatNumbers)
     upper = max(seatNumbers)
     allSeats = set(range(lower, upper))
-    return allSeats - seatNumbers
+    mySeat = allSeats - seatNumbers
+    return [*mySeat][0]
 
 
 if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", part1(testInput))
-    print("Part 2:", part2(testInput))
 
     print()
 
