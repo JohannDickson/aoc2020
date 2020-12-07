@@ -28,11 +28,20 @@ def getBagContents(bag):
     return {currentBag: whatsInTheBag}
 
 
+def findParents(bag, allbags):
+    parents = set([])
+    for b in allbags:
+        if bag in allbags[b]:
+            parents.update([b])
+            parents.update(findParents(b, allbags))
+    return parents
+
+
 def part1(bags):
     allBags = {}
     for bag in bags:
         allBags.update(getBagContents(bag))
-    return
+    return len(findParents('shiny gold', allBags))
 
 
 if __name__ == '__main__':
@@ -42,4 +51,4 @@ if __name__ == '__main__':
     print()
 
     print("Mine:")
-    # print("Part 1:", part1(myInput))
+    print("Part 1:", part1(myInput))
