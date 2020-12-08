@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 
 import os
+from copy import deepcopy
 
 
 testfile = "../tests/08.txt"
@@ -41,11 +42,37 @@ def part1(instructionSet):
     return accumulator
 
 
+def part2(instructionSet):
+    global accumulator
+
+    for i in range(0, len(instructionSet)):
+        if instructionSet[i].startswith('nop'):
+            newInstructionSet = deepcopy(instructionSet)
+            newInstructionSet[i] = newInstructionSet[i].replace('nop', 'jmp')
+        elif instructionSet[i].startswith('jmp'):
+            newInstructionSet = deepcopy(instructionSet)
+            newInstructionSet[i] = newInstructionSet[i].replace('jmp', 'nop')
+        else:
+            continue
+
+        accumulator = 0
+        previousInstructions = []
+
+        instruction = 0
+        while instruction not in previousInstructions:
+            previousInstructions.append(instruction)
+            instruction = processInstruction(instruction, newInstructionSet)
+            if instruction >= len(instructionSet):
+                return accumulator
+
+
 if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", part1(testInput))
+    print("Part 2:", part2(testInput))
 
     print()
 
     print("Mine:")
     print("Part 1:", part1(myInput))
+    print("Part 2:", part2(myInput))
