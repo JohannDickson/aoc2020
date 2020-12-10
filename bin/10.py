@@ -25,9 +25,48 @@ def part1(adapters):
     return joltDiffs[1]*joltDiffs[3]
 
 
+def findPermutations(adapters):
+    permutation = [adapters[0]]
+
+    for j in [1,2,3]:
+        try:
+            if adapters[j] - adapters[0] <= 3:
+                permutation.append(findPermutations(adapters[j:]))
+        except IndexError:
+            pass
+
+    return permutation
+
+
+def countPermutations(permutations):
+    global pCounter
+
+    l = len(permutations)
+    if l > 2:
+        [countPermutations(x) for x in permutations[1:]]
+    if l == 2:
+        countPermutations(permutations[1])
+    elif len(permutations) == 1:
+        pCounter += 1
+
+
+def part2(adapters):
+    global pCounter
+
+    maxRating = max(adapters)+3
+    seatSocket = 0
+    adapters = sorted([seatSocket]+adapters+[maxRating])
+
+    pCounter = 0
+    allPermutations = findPermutations(adapters)
+    countPermutations(allPermutations)
+    return pCounter
+
+
 if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", part1(testInput))
+    print("Part 2:", part2(testInput))
 
     print()
 
