@@ -26,7 +26,11 @@ def part1(adapters):
 
 
 def findPermutations(adapters):
+    global pCounter
     permutation = [adapters[0]]
+
+    if len(adapters) == 2:
+        pCounter += 1
 
     for j in [1,2,3]:
         try:
@@ -59,7 +63,6 @@ def part2(adapters):
 
     pCounter = 0
     allPermutations = findPermutations(adapters)
-    countPermutations(allPermutations)
     return pCounter
 
 
