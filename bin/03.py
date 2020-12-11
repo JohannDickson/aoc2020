@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 
 import os
+from helper import printGrid
 from copy import deepcopy
-from time import sleep
 
 
 testfile = "../tests/03.txt"
@@ -12,14 +12,6 @@ with open( os.path.join(os.path.dirname(__file__), testfile) ) as f:
 inputfile = "../input/03.txt"
 with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
     myInput = [list(x.strip()) for x in f.readlines()]
-
-
-def printGrid(gridToPrint, display):
-    if display:
-        out = '\n'.join([''.join(y) for y in gridToPrint])
-        os.system('clear')
-        print(out)
-        sleep(0.2)
 
 
 def part1(treeGrid, slope_x, slope_y, display=False):
