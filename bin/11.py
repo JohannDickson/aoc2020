@@ -90,7 +90,7 @@ def addPadding(grid):
     return grid
 
 
-def part1(seating):
+def part1(seating, display=False):
     oldSeats = ''
     iterations = 0
 
@@ -100,12 +100,12 @@ def part1(seating):
         oldSeats = printGrid(seating, False)
         seating = calculateSeats(seating)
         iterations+=1
-        printGrid(seating, True)
+        printGrid(seating, display)
 
     return printGrid(seating, False).count('#')
 
 
-def part2(seating):
+def part2(seating, display=False):
     oldSeats = ''
     iterations = 0
 
@@ -115,7 +115,7 @@ def part2(seating):
         oldSeats = printGrid(seating, False)
         seating = calculateVisibleSeats(seating)
         iterations+=1
-        printGrid(seating, True)
+        printGrid(seating, display)
 
     return printGrid(seating, False).count('#')
 
