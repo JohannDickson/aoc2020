@@ -45,16 +45,20 @@ def calculateSeats(seating):
     return newSeats
 
 
+def addPadding(grid):
+    grid.insert(0, ['.']*len(grid[0]))
+    grid.append(['.']*len(grid[0]))
+    for i in range(0, len(grid)):
+        grid[i].insert(0, '.')
+        grid[i].append('.')
+    return grid
+
+
 def part1(seating):
     oldSeats = ''
     iterations = 0
 
-    # Padding
-    seating.insert(0, ['.']*len(seating[0]))
-    seating.append(['.']*len(seating[0]))
-    for i in range(0, len(seating)):
-        seating[i].insert(0, '.')
-        seating[i].append('.')
+    seating = addPadding(seating)
 
     while printGrid(seating, False) != oldSeats:
         oldSeats = printGrid(seating, False)
