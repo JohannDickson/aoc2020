@@ -14,44 +14,12 @@ with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
     myInput = [list(x.strip()) for x in f.readlines()]
 
 
-def emptyNeighbours(seat, s):
-    (y,x) = seat
-    try:
-        neighbours = [
-            s[y-1][x-1],
-            s[y-1][x],
-            s[y-1][x+1],
-            s[y][x-1],
-            s[y][x+1],
-            s[y+1][x-1],
-            s[y+1][x],
-            s[y+1][x+1]
-        ]
-        return all([n in ['L', '.'] for n in neighbours])
-    except IndexError:
-        print('WAT', (y,x))
-        printGrid(s, False)
-        raise
+def emptyNeighbours(neighbours):
+    return all([n in ['L', '.'] for n in neighbours])
 
 
-def busyNeighbours(seat, s):
-    (y,x) = seat
-    try:
-        neighbours = [
-            s[y-1][x-1],
-            s[y-1][x],
-            s[y-1][x+1],
-            s[y][x-1],
-            s[y][x+1],
-            s[y+1][x-1],
-            s[y+1][x],
-            s[y+1][x+1]
-        ]
-        return (neighbours.count('#')>=4)
-    except IndexError:
-        print('WAT', (y,x))
-        printGrid(s, False)
-        raise
+def busyNeighbours(neighbours, limit):
+    return (neighbours.count('#')>=limit)
 
 
 def calculateSeats(seating):
@@ -59,9 +27,19 @@ def calculateSeats(seating):
 
     for y in range(1, len(seating)-1):
         for x in range(1, len(seating[y])-1):
-            if seating[y][x] == 'L' and emptyNeighbours((y,x), seating):
+            neighbours = [
+                seating[y-1][x-1],
+                seating[y-1][x],
+                seating[y-1][x+1],
+                seating[y][x-1],
+                seating[y][x+1],
+                seating[y+1][x-1],
+                seating[y+1][x],
+                seating[y+1][x+1]
+            ]
+            if seating[y][x] == 'L' and emptyNeighbours(neighbours):
                 newSeats[y][x] = '#'
-            elif seating[y][x] == '#'and busyNeighbours((y,x), seating):
+            elif seating[y][x] == '#'and busyNeighbours(neighbours, 4):
                 newSeats[y][x] = 'L'
 
     return newSeats
