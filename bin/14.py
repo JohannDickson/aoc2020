@@ -58,19 +58,24 @@ def part2(initialization):
             value = int(mem[2])
 
             badd = list(format(address, '036b'))
-            addSpace = [''.join(badd[:currentMask.index('X')])]
+            addSpace = []
             for i in range(0, len(currentMask)):
                 if currentMask[i] == '1':
                     badd[i] = currentMask[i]
                 if currentMask[i] == 'X':
+                    if len(addSpace) == 0:
+                        addSpace = [''.join(badd[:i])]
                     newAddresses = []
                     for a in addSpace:
                         newAddresses.extend([a+''.join(badd[len(a):i])+'0', a+''.join(badd[len(a):i])+'1'])
                     addSpace = newAddresses
 
+            for i in range(len(addSpace)):
+                addSpace[i] = addSpace[i]+''.join(badd[len(addSpace[i]):])
+
             for a in addSpace:
                 a = int(a, 2)
-                memory[a] = int(value)
+                memory[a] = value
 
     return sum(memory.values())
 
