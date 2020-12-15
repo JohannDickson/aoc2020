@@ -46,7 +46,7 @@ def part2(initialization):
     remem = re.compile('^mem\[(\d+)\] = (\d+)')
     remask = re.compile('^mask = ([01X]+)')
     currentMask = ''
-    memory = [0]
+    memory = {}
 
     for x in initialization:
         mask = remask.match(x)
@@ -70,11 +70,9 @@ def part2(initialization):
 
             for a in addSpace:
                 a = int(a, 2)
-                if a >= len(memory):
-                    memory.extend([0]*(a - len(memAddresses)))
                 memory[a] = int(value)
 
-    return sum(memory)
+    return sum(memory.values())
 
 
 if __name__ == '__main__':
