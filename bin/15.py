@@ -13,24 +13,40 @@ with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
 
 
 def part1(numbers, turns):
-    for i in range(len(numbers), turns):
-        last = numbers[-1]
+    memory = {n: {'lastTurn': numbers.index(n)+1, 'count': 1} for n in numbers}
 
-        if numbers.count(last) == 1:
-            numbers.extend([0])
+    last = numbers[-1]
+    for i in range(len(numbers)+1, turns+1):
 
-        elif numbers.count(last) > 1:
-            lastSeen = list(reversed(numbers[:-1])).index(last) +1
-            numbers.extend([lastSeen])
+        if memory[last]['count'] == 1:
+            memory[0]['difference'] = i - memory[0]['lastTurn']
+            memory[0]['lastTurn'] = i
+            memory[0]['count'] += 1
+            last = 0
 
-    return numbers[-1]
+        else:
+            last = memory[last]['difference']
+            if last in memory.keys():
+                memory[last]['difference'] = i - memory[last]['lastTurn']
+                memory[last]['lastTurn'] = i
+                memory[last]['count'] += 1
+            else:
+                memory[last] = {
+                    'count': 1,
+                    'lastTurn': i,
+                    'difference': 0,
+                }
+
+    return last
 
 
 if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", part1(testInput, 10))
+    print("Part 2:", part1(testInput, 30000000))
 
     print()
 
     print("Mine:")
     print("Part 1:", part1(myInput, 2020))
+    print("Part 2:", part1(myInput, 30000000))
