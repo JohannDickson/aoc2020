@@ -16,6 +16,7 @@ def part1(numbers, turns):
     memory = {n: {'lastTurn': numbers.index(n)+1, 'count': 1} for n in numbers}
 
     last = numbers[-1]
+    seen = {}
     for i in range(len(numbers)+1, turns+1):
 
         if memory[last]['count'] == 1:
