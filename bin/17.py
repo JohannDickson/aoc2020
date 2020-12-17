@@ -1,8 +1,10 @@
 #! /usr/bin/env python3
 
 import os
-from helper import printGrid, addPadding
+from copy import deepcopy
+from helper import printDictGrid, addPadding
 from pprint import pprint
+import helper
 
 
 
@@ -33,11 +35,11 @@ class cube:
         self.pending = None
         self.neighbours = []
 
-        if x not in self.allCubeDict:
-            self.allCubeDict[x] = {}
-        if y not in self.allCubeDict[x]:
-            self.allCubeDict[x][y] = {}
-        self.allCubeDict[x][y][z] = self
+        if z not in cube.allCubeDict.keys():
+            cube.allCubeDict[z] = {}
+        if y not in cube.allCubeDict[z].keys():
+            cube.allCubeDict[z][y] = {}
+        cube.allCubeDict[z][y][x] = self
 
         for ix in [-1,0,1]:
             for iy in [-1,0,1]:
@@ -45,7 +47,7 @@ class cube:
                     nx = self.x+ix
                     ny = self.y+iy
                     nz = self.z+iz
-                    if nx!=x and ny!=y and nz!=z:
+                    if nx!=x or ny!=y or nz!=z:
                         self.neighbours.append((nx, ny, nz))
 
         if addNeighbours:
@@ -54,40 +56,40 @@ class cube:
     def addNeighbours(self):
         for n in self.neighbours:
             nx,ny,nz = n
-            if nx not in self.allCubeDict:
-                self.allCubeDict[nx] = {}
-            if ny not in self.allCubeDict[nx]:
-                self.allCubeDict[nx][ny] = {}
-
-            if nz not in self.allCubeDict[nx][ny].keys():
+            if nz not in cube.allCubeDict.keys():
+                cube.allCubeDict[nz] = {}
+            if ny not in cube.allCubeDict[nz].keys():
+                cube.allCubeDict[nz][ny] = {}
+            if nx not in cube.allCubeDict[nz][ny].keys():
                 cube(nx,ny,nz, False, addNeighbours=False)
 
     def countActiveNeighbours(self):
         activeCounter = 0
         for n in self.neighbours:
             nx,ny,nz = n
-            if nx in cube.allCubeDict.keys():
-                if ny in cube.allCubeDict[nx].keys():
-                    if nz in cube.allCubeDict[nx][ny].keys():
-                        if cube.allCubeDict[nx][ny][nz].active:
+            if nz in cube.allCubeDict.keys():
+                if ny in cube.allCubeDict[nz].keys():
+                    if nx in cube.allCubeDict[nz][ny].keys():
+                        if cube.allCubeDict[nz][ny][nx].active:
                             activeCounter+=1
         return activeCounter
 
     def countActive():
         activeCounter = 0
-        for x in cube.allCubeDict.keys():
-            for y in cube.allCubeDict[x].keys():
-                for z in cube.allCubeDict[x][y].keys():
-                    c = cube.allCubeDict[x][y][z]
+        for z in cube.allCubeDict.keys():
+            for y in cube.allCubeDict[z].keys():
+                for x in cube.allCubeDict[z][y].keys():
+                    c = cube.allCubeDict[z][y][x]
                     if c.active:
                         activeCounter+=1
         return activeCounter
 
     def updateActive():
-        for x in cube.allCubeDict.keys():
-            for y in cube.allCubeDict[x].keys():
-                for z in cube.allCubeDict[x][y].keys():
-                    c = cube.allCubeDict[x][y][z]
+        tempDict = deepcopy(cube.allCubeDict)
+        for z in tempDict.keys():
+            for y in tempDict[z].keys():
+                for x in tempDict[z][y].keys():
+                    c = cube.allCubeDict[z][y][x]
                     activeNeighbours = c.countActiveNeighbours()
                     if c.active:
                         if not (2 <= activeNeighbours <= 3):
@@ -102,10 +104,10 @@ class cube:
                         pass
 
 
-        for x in cube.allCubeDict.keys():
-            for y in cube.allCubeDict[x].keys():
-                for z in cube.allCubeDict[x][y].keys():
-                    c = cube.allCubeDict[x][y][z]
+        for z in cube.allCubeDict.keys():
+            for y in cube.allCubeDict[z].keys():
+                for x in cube.allCubeDict[z][y].keys():
+                    c = cube.allCubeDict[z][y][x]
                     if c.pending is not None:
                         c.active = c.pending
                         c.pending = None
