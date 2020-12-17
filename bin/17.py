@@ -126,7 +126,7 @@ def part1(cubeSlice, iterations):
 
 if __name__ == '__main__':
     print("Tests:")
-    print("Part 1:", part1(testInput, 6), 112)
+    # print("Part 1:", part1(testInput, 6), 112)
 
     print()
 
