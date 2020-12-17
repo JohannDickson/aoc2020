@@ -4,8 +4,6 @@ import os
 from copy import deepcopy
 from helper import printDictGrid, addPadding
 from pprint import pprint
-import helper
-
 
 
 testfile = "../tests/17.txt"
@@ -91,18 +89,11 @@ class cube:
                 for x in tempDict[z][y].keys():
                     c = cube.allCubeDict[z][y][x]
                     activeNeighbours = c.countActiveNeighbours()
-                    if c.active:
-                        if not (2 <= activeNeighbours <= 3):
-                            # print(x,y,z, c.active, 'NOW INACTIVE')
+                    if c.active and not (2 <= activeNeighbours <= 3):
                             c.pending = False
-                    elif activeNeighbours == 3:
-                            print(x,y,z, c.active, 'WAKING UP')
+                    elif c.active == False and activeNeighbours == 3:
                             c.pending = True
                             c.addNeighbours()
-                    else:
-                        # print(x,y,z, c.active, 'NO CHANGE')
-                        pass
-
 
         for z in cube.allCubeDict.keys():
             for y in cube.allCubeDict[z].keys():
@@ -111,9 +102,6 @@ class cube:
                     if c.pending is not None:
                         c.active = c.pending
                         c.pending = None
-
-
-
 
 
 def part1(cubeSlice, iterations):
@@ -126,13 +114,12 @@ def part1(cubeSlice, iterations):
                 active = True
             cube(x, y, 0, active)
 
-    # print(cube.countActive())
-    # pprint(cube.allCubeDict, indent=4, compact=False)
+    print(printDictGrid(cube.allCubeDict[0], False))
     for i in range(0,6):
         cube.updateActive()
         print('ITERATION', i)
         print('ACTIVE', cube.countActive())
-        # pprint(cube.allCubeDict, indent=4, compact=False)
+        print(printDictGrid(cube.allCubeDict[0], False))
 
 
     return cube.countActive()
@@ -144,4 +131,4 @@ if __name__ == '__main__':
     print()
 
     print("Mine:")
-    # print("Part 1:", part1(myInput, 6))
+    print("Part 1:", part1(myInput, 6), '< 510')
