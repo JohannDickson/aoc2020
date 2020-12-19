@@ -41,7 +41,12 @@ def part1(imageData):
                     if k == '8':
                         rules[k][j] = '+'
                     if k == '11':
+                        rules[k] = rules[k][:2]
+                        for i in range(2,10):
+                            newExpr = ['|'] + ['42']*i + ['31']*i
+                            rules[k].extend(newExpr)
                         pass
+                    break
 
                 for l in letters:
                     if rules[k][j] == l:
