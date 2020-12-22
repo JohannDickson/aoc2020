@@ -26,6 +26,17 @@ def playRound(players):
     return players
 
 
+def getWinnerScore(decks):
+    cardCount = [len(p) for p in decks]
+    winner = cardCount.index(max(cardCount))
+    winnersScore = 0
+    multiplier = len(decks[winner])
+    for c in range(0, len(decks[winner])):
+        winnersScore += multiplier*decks[winner][c]
+        multiplier -= 1
+    return winnersScore
+
+
 def part1(cardDecks):
     players = cardDecks.split('\n\n')
     for p in range(0, len(players)):
@@ -34,15 +45,7 @@ def part1(cardDecks):
     while all([len(p) for p in players]):
         playRound(players)
 
-    cardCount = [len(p) for p in players]
-    winner = cardCount.index(max(cardCount))
-    winnersScore = 0
-    multiplier = len(players[winner])
-    for c in range(0, len(players[winner])):
-        winnersScore += multiplier*players[winner][c]
-        multiplier -= 1
-
-    return winnersScore
+    return getWinnerScore(players)
 
 
 if __name__ == '__main__':
