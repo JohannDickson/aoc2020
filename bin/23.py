@@ -13,7 +13,7 @@ with open( os.path.join(os.path.dirname(__file__), inputfile) ) as f:
     myInput = [int(x) for x in f.read().strip()]
 
 
-def part1(cups, turns):
+def playCups(cups, turns):
     cups = deque(cups)
 
     for i in range(0, turns):
@@ -34,6 +34,11 @@ def part1(cups, turns):
         cups.rotate(-(cups.index(current)+1))
 
     cups.rotate(- (cups.index(1)))
+    return cups
+
+
+def part1(cups, turns):
+    cups = playCups(cups, turns)
     return ''.join([str(c) for c in list(cups)][1:])
 
 
