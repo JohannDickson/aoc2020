@@ -42,12 +42,22 @@ def part1(cups, turns):
     return ''.join([str(c) for c in list(cups)][1:])
 
 
+def part2(cups, turns):
+    for i in range(max(cups)+1, 1000000+1):
+        cups.append(i)
+
+    cups = playCups(cups, turns)
+    return cups[1] * cups[2]
+
+
 if __name__ == '__main__':
     print("Tests:")
     print("Part 1:", part1(testInput, 10))
     print("Part 1:", part1(testInput, 100))
+    print("Part 2:", part2(testInput, 10000000))
 
     print()
 
     print("Mine:")
     print("Part 1:", part1(myInput, 100))
+    print("Part 2:", part2(myInput, 10000000))
